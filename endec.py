@@ -3,6 +3,11 @@
 
 def endec(word):
     Method = input('If you would like to encode, type: E, if to decode, type D:')
+    ## if the input is txt file:
+    ## uuu=open("name.txt")
+    ## word=uuu.read() (note, if there's a "/n" at the end than the file has been save with a blank line
+    ## it symbolizes a new line.. so save the file on the last 'writen' line 
+    
     ## making the dictionary:
     import string
     alpha=string.ascii_lowercase
