@@ -7,7 +7,7 @@ Task 8 - Mean, Median, and Mode (Computed From Scratch)
 ## obtains the data
    
 # e.g. inputs: 
-# lis=[1,2,3,4]
+lis=[1,2,3,2,3,2,4,4]
 # tup=(1,4,6)
 # ran=range(1,12)
 
@@ -24,6 +24,40 @@ def median(data):
 
 
 3) Write a function that, given an arbitrary list of numbers (or a range, or a tuple of numbers) computes the mode.
+
+def mode(data):
+    liss=list(data)
+    freq=[]
+    freqi={}
+    for elem in liss:
+        num=0
+        for other in liss:
+            if elem == other:
+                num=num+1
+        pairi={elem:num}
+        pair=[elem,num]
+        if pair not in freq:
+            freqi.update(pairi)
+            freq.append(pair)
+    print(f"The number and its frequency = {freqi}")
+        
+    modep=freq[0]
+    for ii in range(1,len(freq)):
+        if freq[ii][1]>freq[ii-1][1]:
+            modep=freq[ii]
+            
+    count=0
+    mode=[]
+    for elem in freq:
+        if elem[1]==modep[1]:
+            count=count+1
+    if count>1:
+        mode=None
+    else:
+        mode=modep[0]
+    return(print(f"mode = {mode}"))
+
+
 
 see docstring below for examples
 """
