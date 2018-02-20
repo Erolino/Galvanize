@@ -15,12 +15,12 @@ class card():
 
     def __str__(self):
             return "{} of {}".format(self.value,self.suite)
-class deck():
+
+class deck(card):
             
     def __init__(self):
-        self.create()
-        self.shuf()
-        self.choice(top=True)
+        self.decks=[]
+        pool=[]
         
     def create(self,numOFdeck=1):
         suites=['spades','hearts','clubs','diamonds']
@@ -33,9 +33,7 @@ class deck():
                 elif ii==13:ii='king'
                 elif ii==14:ii='ace'
                 card.value=str(ii)
-                print("{} of {}".format(card.value,card.suite))
                 listall.append(card(card.suite,card.value))
-        print(len(listall))
         self.decks=listall*numOFdeck
         return self.decks
     
@@ -44,32 +42,19 @@ class deck():
         return(self.decks)
         
     def __str__(self):
-            return "{}".format(self.decks)
+        return "{} of {}".format(card.value,card.suite)
         
-    def choice(self,top=True):
-        if top==True:
-            card=self.decks[0]
-        else:
-            card=choice(self.decks)
-        return(card)
+    def pick(self):
+        if len(self.decks)==0:
+            print("no more crads in pool")
+        card=self.decks[0]
+        del(self.decks[0])
+        return card,self.decks
             
-            
-    
-# ##### code ####
-# ## Create an instance:
-# d1=deck()
-# ## to create a deck:
-# deck.create(d1)
-# ## to choose a random card from deck created:
-# rand=deck.choice(d1,top=False)
-# print(rand) ## to see the choice
-# ## to choose from top:
-# top=deck.choice(d1)
-# print(top)
-# ####### ########
 
 
-        
+
+
 
 
 
