@@ -63,9 +63,10 @@ for ii in range(len(pool)):
 
 ##### Start playing###
 
-#### alternating turns:
-
-for ii in range(1,20):
+ii=0
+while len(tableX)<6:
+    #### alternating turns:
+    ii=ii+1
     print(f"ii = {ii}")
     if ii%2!=0:
         x=1
@@ -79,7 +80,8 @@ for ii in range(1,20):
         ans=input("player 2, what card do you want from player 1?:")
 
     ### Algorithm of picking up cards from opponent or pool:
-    if handY[ans]!=None:  
+    if handY[ans]!=None:
+        #pick up from opponent:
         if type(handX[ans])==list:
             lis=handX[ans]
             lis.append(handY[ans])
@@ -107,7 +109,6 @@ for ii in range(1,20):
                 liss=handX[card1splitVal]
                 liss.append(card1str)
                 handX[card1splitVal]=liss
-                ## hand1[card1splitVal]=[hand1[card1splitVal],card1str]
             elif type(handX[card1splitVal])==str:
                 handX[card1splitVal]=[handX[card1splitVal]]+[card1str] 
         
@@ -124,17 +125,16 @@ for ii in range(1,20):
         if handX[key]!=None:
             if len(handX[key])==4:
                 tableX[key]=handX[key]
-    print(f"Player {x} sets: {tableX}")
+    print(f"Player {x} has {len(tableX)} sets: {tableX}")
     ###### Updating hand1 and hand2 according to the changes of this round:
-    print(f"x ={x}")
     if x==1: hand1=handX
     if x==2: hand2=handX
     ### If there are more than 6 sets for one player - he wins
     if len(tableX)>6:
         print(f"Player {x} has more than half of the sets.. Player {x} wins!")
-        
+        break
     
- 
+        
 
 
     
