@@ -25,6 +25,7 @@ class deck(card):
     def create(self,numOFdeck=1):
         suites=['spades','hearts','clubs','diamonds']
         listall=[]
+        dic={}
         for elem in suites:
             for ii in range(2,15):
                 card.suite=elem
@@ -33,9 +34,10 @@ class deck(card):
                 elif ii==13:ii='king'
                 elif ii==14:ii='ace'
                 card.value=str(ii)
+                dic[card.value]=card.value
                 listall.append(card(card.suite,card.value))
         self.decks=listall*numOFdeck
-        return self.decks
+        return self.decks,dic
     
     def shuf(self):
         shuffle(self.decks)
@@ -50,6 +52,17 @@ class deck(card):
         card=self.decks[0]
         del(self.decks[0])
         return card,self.decks
+        
+    def hand(self):
+        handd={}
+        for ii in range(2,15):
+            if ii==11: ii='jack'
+            elif ii==12:ii= "queen"
+            elif ii==13:ii='king'
+            elif ii==14:ii='ace'
+            card.value=str(ii)
+            handd[card.value]=None
+        return handd
             
 
 
