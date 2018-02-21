@@ -64,62 +64,75 @@ for ii in range(len(pool)):
 ##### Start playing###
 
 #### alternating turns:
+
 for ii in range(1,20):
+    print(f"ii = {ii}")
     if ii%2!=0:
+        x=1
+        handX=hand1
+        handY=hand2
         ans=input("player 1, what card do you want from player 2?:")
     elif ii%2==0:
+        x=2
+        handX=hand2
+        handY=hand1
         ans=input("player 2, what card do you want from player 1?:")
 
-### Algorithm of picking up cards from opponent or pool:
-if hand2[ans]!=None:  
-    if type(hand1[ans])==list:
-        lis=hand1[ans]
-        lis.append(hand2[ans])
-        hand1[ans]=lis
-        hand2[ans]=None
-    elif type(hand2[ans])==str and type(hand1[ans])==str:
-        hand1[ans]=[hand1[ans]]+[hand2[ans]]
-        hand2[ans]=None
-    elif type(hand2[ans])==list and type(hand1[ans])==str:
-        lis=hand2[ans]
-        lis.append(hand1[ans])
-        hand1[ans]=lis
-        hand2[ans]=None
-elif hand2[ans]==None: 
-    #pick up from pool:
-    Cardandpool=d.pick()
-    Pool=Cardandpool[1]
-    card1=Cardandpool[0]
-    card1str=str(Cardandpool[0])
-    card1splitVal=card1str.split(" ")[0]
-    if hand1[card1splitVal]==None:
-        hand1[card1splitVal]=card1str
-    elif hand1[card1splitVal]!=None:
-        if type(hand1[card1splitVal])==list:
-            liss=hand1[card1splitVal]
-            liss.append(card1str)
-            hand1[card1splitVal]=liss
-            ## hand1[card1splitVal]=[hand1[card1splitVal],card1str]
-        elif type(hand1[card1splitVal])==str:
-            hand1[card1splitVal]=[hand1[card1splitVal]]+[card1str] 
-    
-print("hand1:")
-for key in hand1:
-    if hand1[key]!=None: print(str(hand1[key]))
-print("hand2:")
-for key in hand2:
-    if hand2[key]!=None: print(str(hand2[key]))           
+    ### Algorithm of picking up cards from opponent or pool:
+    if handY[ans]!=None:  
+        if type(handX[ans])==list:
+            lis=handX[ans]
+            lis.append(handY[ans])
+            handX[ans]=lis
+            handY[ans]=None
+        elif type(handY[ans])==str and type(handX[ans])==str:
+            handX[ans]=[handX[ans]]+[handY[ans]]
+            handY[ans]=None
+        elif type(handY[ans])==list and type(handX[ans])==str:
+            lis=handY[ans]
+            lis.append(handX[ans])
+            handX[ans]=lis
+            handY[ans]=None
+    elif handY[ans]==None: 
+        #pick up from pool:
+        Cardandpool=d.pick()
+        Pool=Cardandpool[1]
+        card1=Cardandpool[0]
+        card1str=str(Cardandpool[0])
+        card1splitVal=card1str.split(" ")[0]
+        if handX[card1splitVal]==None:
+            handX[card1splitVal]=card1str
+        elif handX[card1splitVal]!=None:
+            if type(handX[card1splitVal])==list:
+                liss=handX[card1splitVal]
+                liss.append(card1str)
+                handX[card1splitVal]=liss
+                ## hand1[card1splitVal]=[hand1[card1splitVal],card1str]
+            elif type(handX[card1splitVal])==str:
+                handX[card1splitVal]=[handX[card1splitVal]]+[card1str] 
         
-### Checking if there are complete sets
-table1={}
-for key in hand1:
-    if hand1[key]!=None:
-        if len(hand1[key])==4:
-            table1[key]=hand1[key]
-print("Player 1 sets: "+str(table1))
-### If there are more than 6 sets for one player - he wins
-if len(table1)>6:
-    print("Player 1 has more than half of the sets.. Player 1 wins!")
+    print("hand1:")
+    for key in hand1:
+        if hand1[key]!=None: print(str(hand1[key]))
+    print("hand2:")
+    for key in hand2:
+        if hand2[key]!=None: print(str(hand2[key]))           
+            
+    ### Checking if there are complete sets
+    tableX={}
+    for key in handX:
+        if handX[key]!=None:
+            if len(handX[key])==4:
+                tableX[key]=handX[key]
+    print(f"Player {x} sets: {tableX}")
+    ###### Updating hand1 and hand2 according to the changes of this round:
+    print(f"x ={x}")
+    if x==1: hand1=handX
+    if x==2: hand2=handX
+    ### If there are more than 6 sets for one player - he wins
+    if len(tableX)>6:
+        print(f"Player {x} has more than half of the sets.. Player {x} wins!")
+        
     
  
 
