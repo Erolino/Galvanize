@@ -57,27 +57,39 @@ print("hand2:")
 for key in hand2:
     if hand2[key]!=None: print(str(hand2[key]))
 ## if you want to print the pool:
-print("Pool:")
-for ii in range(len(pool)):
-    print(pool[ii])
+# print("Pool:")
+# for ii in range(len(pool)):
+#     print(pool[ii])
+
 
 ##### Start playing###
 
 ii=0
-while len(tableX)<6:
+tableX={}
+while len(tableX)<7:
     #### alternating turns:
+    print(f"Total number of turns played = {ii}")
     ii=ii+1
-    print(f"ii = {ii}")
     if ii%2!=0:
         x=1
         handX=hand1
         handY=hand2
         ans=input("player 1, what card do you want from player 2?:")
+        if handX[ans]==None:
+            ans=input("You can't ask for a card you don't have, try again - ask for a card:")
+            if handX[ans]==None:
+                print("fooled me once shame on me, fooled me twice shame on you. Game over! Play fairly next time")
+                break
     elif ii%2==0:
         x=2
         handX=hand2
         handY=hand1
         ans=input("player 2, what card do you want from player 1?:")
+        if handX[ans]==None:
+            ans=input("You can't ask for a card you don't have, try again - ask for a card:")
+            if handX[ans]==None:
+                print("fooled me once shame on me, fooled me twice shame on you. Game over! Play fairly next time")
+                break
 
     ### Algorithm of picking up cards from opponent or pool:
     if handY[ans]!=None:
@@ -114,18 +126,21 @@ while len(tableX)<6:
         
     print("hand1:")
     for key in hand1:
-        if hand1[key]!=None: print(str(hand1[key]))
+        if hand1[key]!=None and len([hand1[key]])<4:
+            print(str(hand1[key]))
     print("hand2:")
     for key in hand2:
-        if hand2[key]!=None: print(str(hand2[key]))           
+        if hand2[key]!=None and len([hand2[key]])<4: 
+            print(str(hand2[key]))           
             
     ### Checking if there are complete sets
-    tableX={}
     for key in handX:
         if handX[key]!=None:
             if len(handX[key])==4:
                 tableX[key]=handX[key]
     print(f"Player {x} has {len(tableX)} sets: {tableX}")
+    #### show how many cards left in pool:
+    print(f"cards left in pool: {len(pool)}")
     ###### Updating hand1 and hand2 according to the changes of this round:
     if x==1: hand1=handX
     if x==2: hand2=handX
@@ -137,7 +152,21 @@ while len(tableX)<6:
         
 
 
-    
-     
+# print("hand1:")
+# for key in hand1:
+#     if hand1[key]!=None and len([hand1[key]])<4:
+#         print(str(hand1[key]))
+# print("hand2:")
+# for key in hand2:
+#     print(f"key = {key}")
+#     print(f"hand2[key] = {hand2[key]}")
+#     print(f"len(hand2[key]) = {len([hand2[key]])}")
+#     if hand2[key]!=None and len([hand2[key]])<4: 
+#         print(str(hand2[key]))    
+ 
+
+
+
+
 
 
