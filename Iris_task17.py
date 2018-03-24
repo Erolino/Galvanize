@@ -38,6 +38,7 @@ X_train,X_test,Y_train,Y_test=train_test_split(X,Y,test_size=0.2,stratify=Y,rand
 from sklearn.linear_model import LogisticRegression 
 from sklearn import metrics
 from sklearn.metrics import classification_report 
+from sklearn.metrics import confusion_matrix
 
 log_reg = LogisticRegression(random_state=101)
 
@@ -50,6 +51,13 @@ r2_0=metrics.r2_score(Y_test[:,0],y_pred0)  #1.0
 print(f"r^2 score for classifying Setosa is: {r2_0}")
 target_names=["not Setosa","Setosa"]
 print(classification_report(Y_test[:,0],y_pred0,target_names=target_names))
+print("Setosa confusion matrix ")
+conf0=confusion_matrix(Y_test[:,0],y_pred0)
+keys=[['True Positive','False Negative'],['False Positive','True Negative']]
+keys=pd.DataFrame(keys)
+print(conf0)
+print(keys)
+print('___________________________________________________')
 "for Versicolor:"
 log_reg.fit(X_train,Y_train[:,1])
 y_proba1 = log_reg.predict_proba(X_test) 
@@ -58,9 +66,17 @@ metrics.mean_squared_error(Y_test[:,1],y_pred1) #0.26666666666666666
 r2_1=metrics.r2_score(Y_test[:,1],y_pred1)  #-0.36363636363636354
 print(f"r^2 score for classifying Vesicolor is: {r2_1}")
 inderror=np.where(y_pred1!=Y_test[:,1])
-errorrate=len(inderror)/len(y_pred1) # 3.3%
+errorrate=np.size(inderror)/len(y_pred1) # 3.3%
+accuracy=1-errorrate
 target_names1=["not Vesicolor","Vesicolor"]
 print(classification_report(Y_test[:,1],y_pred1,target_names=target_names1))
+print("Vesicolor confusion matrix ")
+conf1=confusion_matrix(Y_test[:,1],y_pred1)
+keys=[['True Positive','False Negative'],['False Positive','True Negative']]
+keys=pd.DataFrame(keys)
+print(conf1)
+print(keys)
+print('___________________________________________________')
 "for Virginica:"
 log_reg.fit(X_train,Y_train[:,2])
 y_proba2 = log_reg.predict_proba(X_test) 
@@ -70,7 +86,12 @@ r2_2=metrics.r2_score(Y_test[:,2],y_pred2)  #1.0
 print(f"r^2 score for classifying Virginica is: {r2_2}")
 target_names2=["not Virginica","Virginica"]
 print(classification_report(Y_test[:,2],y_pred2,target_names=target_names2))
-
+print("Virginica confusion matrix ")
+conf1=confusion_matrix(Y_test[:,2],y_pred2)
+keys=[['True Positive','False Negative'],['False Positive','True Negative']]
+keys=pd.DataFrame(keys)
+print(conf1)
+print(keys)
 
 import pandas as pd
 df=pd.DataFrame(iris.data,range(0,150),['Sepal Length','Sepal Width','Petal Length','Petal Width'])
